@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
@@ -25,16 +26,30 @@ class OutraActivity : AppCompatActivity() {
         this.btCadastrar = findViewById(R.id.btCadastrar)
         this.btCadastrar.setOnClickListener( {cadastrar(it)} )
 
+        if(intent.hasExtra("DESEJO")){
+            val desejo = intent.getSerializableExtra("DESEJO") as Desejo
+            this.etDesejo.setText(desejo.descricao)
+            this.etValor.setText(desejo.valor.toString())
+            this.btCadastrar.text = "Atualizar"
+        }
+
         this.btCancelar = findViewById(R.id.btCancelar)
         this.btCancelar.setOnClickListener( {cancelar (it)})
 
     }
 
     private fun cadastrar(view: View) {
-        val nome: String = this.etDesejo.text.toString()
+        val descricao: String = this.etDesejo.text.toString()
         val valor = this.etValor.text.toString().toFloat()
 
-        val desejo = Desejo(nome,valor)
+        val desejo = if(intent.hasExtra("DESEJO")){
+            val d = intent.getSerializableExtra("DESEJO") as Desejo
+            d.descricao = descricao
+            d.valor = valor
+            d
+        }else{
+            Desejo(descricao,valor)
+        }
 
         val intent = Intent(this,MainActivity::class.java)
         intent.putExtra("DESEJO",desejo)

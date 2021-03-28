@@ -52,13 +52,13 @@
         <Button
             android:id="@+id/btCadastrar"
             android:text="Cadastrar"
-
+            android:backgroundTint="@color/green"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <Button
             android:id="@+id/btCancelar"
             android:text="Cancelar"
-
+            android:backgroundTint="@color/red"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
